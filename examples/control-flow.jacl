@@ -1,0 +1,23 @@
+
+"conditionals"
+
+f [ 'true' println ] [ 'false' println ] if "prints false"
+t [ 'true' println ] [ 'false' println ] if "prints true"
+
+f [ 'this is true' println ] if-true "does nothing"
+t [ 'this is true' println ] if-true "prints true"
+
+f [ 'this is false' println ] if-false "prints false"
+t [ 'this is false' println ] if-false "does nothing"
+
+"looping"
+
+loop [ 'hello' println ] again   "prints hello indefinitely"
+10 loop [ dup println 1 - dup 0 eq? ] while  "prints 10 9 8 ... 0"
+
+: count-to-five ( -- 0 1 2 3 4 5 )
+  		0 loop
+		  dup 1 +
+		  dup 4 > [ break ] if-true
+		again
+;

@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "yacl"
+version = "0.1.0"
+description = ""
+authors = ["latrokles <latrokles@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "^2.3.3"
+pysdl2 = "^0.9.16"
+nanoid = "^2.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = {extras = ["cov"], version = "^7.4.2"}
+coverage = "^7.3.1"
+pytest-cov = "^4.1.0"
+
+[tool.pytest.ini_options]
+addopts = "-ra -q --cov=yacl --cov-report=html"
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
