@@ -1,0 +1,50 @@
+
+"comments are double quoted strings, and can be multiline"
+
+"integers"
+1_000_000
+5
+6
+
+"floats"
+0.5
+35.50
+1_000.00
+
+"strings"
+'this is a sting'
+
+"symbols"
+#my_symbol
+
+"booleans"
+t
+f
+
+"nil"
+nil
+
+"collections"
+
+#[ 1 2 3 4 5 ]             "lists"
+#( 1 2 3 4 5 )             "tuples"
+#[[ 1 2 3 ]]               "sets"
+#{ 'name' 'bob' 'age' 10 } "dictionaries"
+
+"quotations are code blocks, akin to an anonymous function"
+
+[ dup * ]
+
+"stack effect comments"
+( a b -- a+b )
+
+"objects"
+
+"defining a schema/class"
+CLASS: Person name age ;
+
+"instantiating objects"
+
+Person new           "creates an instance with nil slot values"
+'Bob' 10 make-Person "using order of arguments"
+O{ Person 'Bob' 10 } "literal object creation"
