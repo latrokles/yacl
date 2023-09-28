@@ -1,6 +1,6 @@
 import pytest
 
-from yacl.interpreter import CallFrame, Interpreter
+from yavm.interpreter import CallFrame, Interpreter
 
 
 @pytest.fixture

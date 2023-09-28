@@ -1,7 +1,7 @@
 import dataclasses
 import traceback
 
-from yacl import Stack
+from yavm import Stack
 
 
 @dataclasses.dataclass

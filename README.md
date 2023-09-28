@@ -1,1 +1,1 @@
-# Yet Another Concat Lang (YACL)
+# Yet Another Virtual Machine

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "yacl"
+name = "yavm"
 version = "0.1.0"
 description = ""
 authors = ["latrokles <latrokles@gmail.com>"]
@@ -17,7 +17,7 @@ coverage = "^7.3.1"
 pytest-cov = "^4.1.0"
 
 [tool.pytest.ini_options]
-addopts = "-ra -q --cov=yacl --cov-report=html"
+addopts = "-ra -q --cov=yavm --cov-report=html"
 pythonpath = ["."]
 testpaths = ["tests"]
 
