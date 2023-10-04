@@ -1,0 +1,11 @@
+IN: tools/todo
+USE: datetime/now ;
+
+:object Todo title state created_on updated_on ;
+:method complete 
+	"DONE" >>state
+	now >>updated_on ;
+
+
+: new-todo ( str -- Todo ) "PENDING" now dup Todo newp ;
+: complete-todo ( str -- ) Todo load-by-id complete ;
