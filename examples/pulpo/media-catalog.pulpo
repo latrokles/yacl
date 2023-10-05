@@ -1,0 +1,26 @@
+in: latrokles/tools/media-catalog
+
+use: services/open-library/query-book-by-isbn ;
+
+global: MEDIA>FETCHER hashtable{ 'books' [ query-book-by-isbn ] } ;
+
+class: Media type title authors publication-year id-type id-value ;
+
+class: PhysicalLocation
+       name             // name of the location
+       media-ids ;      // list of ids for media stored in location
+
+def: add-media-by-id 
+     ( location-name media-type identifier identifier-type -- )
+     create-media-record
+     store-in-location ;
+
+def: create-media-record 
+     ( media-type identifier identifier-type -- media )
+     rot                        // put media-type on top of stack
+     media-data-fetcher-by-type // get fetcher quotation by type
+     call ;                     // call quotation
+
+def: media-data-retriever-by-type ( media-type -- fetch-quot )
+     'MEDIA>FETCHER' get-global
+     get-at ;
