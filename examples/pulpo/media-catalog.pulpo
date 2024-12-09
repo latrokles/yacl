@@ -2,25 +2,58 @@ in: latrokles/tools/media-catalog
 
 use: services/open-library/query-book-by-isbn ;
 
-global: MEDIA>FETCHER hashtable{ 'books' [ query-book-by-isbn ] } ;
+global: MEDIA>FETCHER hashtable{ 'books' [ query-book-by-isbn book-response>book-media] } ;
 
-class: Media type title authors publication-year id-type id-value ;
+class: Media type title authors publication-date id-value id-type ;
 
 class: PhysicalLocation
        name             // name of the location
        media-ids ;      // list of ids for media stored in location
 
-def: add-media-by-id 
-     ( location-name media-type identifier identifier-type -- )
+defgeneric: store-media ( media location -- location )
+defmethod: PhysicalLocation store-media
+           media-ids>>            // media location media-ids(slot)
+	   rot                    // location media-ids(slot) media
+	   object-id>> swap drop  // location media-ids(slot) object-id(media)
+	   swap append            // location media-ids(slot)
+	   drop ;
+
+
+class: MediaCatalog digital physical ;
+
+defgeneric: search-media ( title -- media )
+defgeneric: list-media ( -- titles )
+defgeneric: list-media-in-location ( location-name -- titles )
+defgeneric: location-for-media ( title -- location )
+
+def: add-media-by-id ( location-name media-type id-value id-type -- )
      create-media-record
      store-in-location ;
 
-def: create-media-record 
-     ( media-type identifier identifier-type -- media )
+def: create-media-record ( media-type id-value id-type -- media )
      rot                        // put media-type on top of stack
      media-data-fetcher-by-type // get fetcher quotation by type
      call ;                     // call quotation
 
 def: media-data-retriever-by-type ( media-type -- fetch-quot )
-     'MEDIA>FETCHER' get-global
+     'MEDIA>FETCHER'
+     get-global
      get-at ;
+
+def: book-response>book-media ( hashtable -- media )
+     'book' swap
+     dup get-at 'title' swap
+     dup get-at 'authors' swap
+     dup get-at 'publish-data' swap
+     dup get-at 'isbn'
+     'isbn'
+     Media make-persistent ;
+
+def: store-in-location ( location-name media -- )
+     swap load-location-by-name
+     store-media drop ;
+
+def: load-location-by-name ( location-name -- location )
+     'name' hashtable{ } set-at  // create query hashtable
+     PhysicalLocation find-one ; // query object by name
+
